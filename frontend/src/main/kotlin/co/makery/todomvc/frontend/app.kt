@@ -38,35 +38,29 @@ fun main(args: Array<String>) {
 }
 
 fun TagConsumer<*>.application() {
-  section {
-    classes += "todoapp"
-    header {
-      classes += "header"
+  section(classes = "todoapp") {
+    header(classes = "header") {
       h1 { +"todos" }
-      input { classes += "new-todo"; placeholder = "What needs to be done?"; autoFocus = true }
+      input(classes = "new-todo") { placeholder = "What needs to be done?"; autoFocus = true }
     }
-    section {
-      classes += "main"
-      input { classes += "toggle-all"; type = InputType.checkBox }
+    section(classes = "main") {
+      input(classes = "toggle-all", type = InputType.checkBox)
       label { for_ = "toggle-all"; +"Mark all as complete" }
-      ul { classes += "todo-list" }
+      ul(classes = "todo-list")
     }
-    footer {
-      classes += "footer"
-      span { classes += "todo-count" }
-      ul {
-        classes += "filters"
-        li { a { classes += "selected"; href = "#/"; +"All" } }
-        li { a { href = "#/active"; +"Active" } }
-        li { a { href = "#/completed"; +"Completed" } }
+    footer(classes = "footer") {
+      span(classes = "todo-count")
+      ul(classes = "filters") {
+        li { a(classes = "selected", href = "#/") { +"All" } }
+        li { a(href = "#/active") { +"Active" } }
+        li { a(href = "#/completed") { +"Completed" } }
       }
-      button { classes += "clear-completed"; +"Clear completed" }
+      button(classes = "clear-completed") { +"Clear completed" }
     }
   }
-  footer {
-    classes += "info"
+  footer(classes = "info") {
     p { +"Double-click to edit a todo" }
-    p { +"Created by "; a { href = "#"; +"" } }
-    p { +"Part of "; a { href = "http://todomvc.com"; +"TodoMVC" } }
+    p { +"Created by "; a(href = "https://github.com/gyulavoros/kotlin-todomvc") { +"Gyula Voros" } }
+    p { +"Part of "; a(href = "http://todomvc.com") { +"TodoMVC" } }
   }
 }

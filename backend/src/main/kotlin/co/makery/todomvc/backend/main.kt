@@ -27,7 +27,3 @@ fun Application.main() {
     }
   }
 }
-
-fun FlowContent.widget(body: FlowContent.() -> Unit) {
-  div { body() }
-}

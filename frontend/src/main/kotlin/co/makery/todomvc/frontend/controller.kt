@@ -34,7 +34,7 @@ class Controller(private val model: Model, private val view: View) {
   }
 
   private fun addItem(title: String) {
-    if (title.trim().isEmpty()) return
+    if (title.isBlank()) return
     model.create(title) {
       view.render.clearNewTodo()
       filter(true)

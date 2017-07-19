@@ -12,11 +12,10 @@ class Template {
     val completed = if (todo.completed) "completed" else ""
     attributes.put("data-id", todo.id)
     classes += completed
-    div {
-      classes += "view"
-      checkBoxInput { classes += "toggle"; checked = todo.completed }
+    div(classes = "view") {
+      checkBoxInput(classes = "toggle") { checked = todo.completed }
       label { +todo.title }
-      button { classes += "destroy" }
+      button(classes = "destroy")
     }
   }
 
