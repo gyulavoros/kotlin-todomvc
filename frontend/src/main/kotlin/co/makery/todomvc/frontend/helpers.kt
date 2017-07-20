@@ -24,7 +24,7 @@ fun delegate(target: Element, selector: String, type: String, handler: (EventTar
     }
   }
   val useCapture = type == "blur" || type == "focus"
-  target.addEventListener(type, dispatchEvent, !!useCapture)
+  target.addEventListener(type, dispatchEvent, useCapture)
 }
 
 fun parent(element: Element, tagName: String): Element? {
