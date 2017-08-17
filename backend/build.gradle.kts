@@ -31,7 +31,8 @@ repositories {
 dependencies {
   compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
   compile("org.jetbrains.kotlinx:kotlinx-html-jvm:$htmlVersion")
-  compile("org.jetbrains.ktor:ktor-netty:0.3.3")
-  compile("org.jetbrains.ktor:ktor-html-builder:0.3.3")
+  compile("org.jetbrains.ktor:ktor-netty:0.4.0")
+  compile("org.jetbrains.ktor:ktor-html-builder:0.4.0")
+  compile("ch.qos.logback:logback-classic:1.2.3")
   compile("azadev.kotlin:aza-kotlin-css:1.0")
 }

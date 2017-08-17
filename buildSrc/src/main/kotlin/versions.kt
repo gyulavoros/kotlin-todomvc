@@ -1,2 +1,2 @@
-val kotlinVersion = "1.1.3"
-val htmlVersion = "0.6.3"
+val kotlinVersion = "1.1.4"
+val htmlVersion = "0.6.4"

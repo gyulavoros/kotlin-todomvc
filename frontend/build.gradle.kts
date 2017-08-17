@@ -15,6 +15,7 @@ buildscript {
 
   dependencies {
     classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+    classpath("org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.20")
   }
 }
 
