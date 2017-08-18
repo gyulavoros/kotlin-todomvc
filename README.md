@@ -16,9 +16,11 @@ All of the application logic is implemented in Kotlin and compiled to JavaScript
 Being a full stack Kotlin example project, the build scripts are also written in Kotlin (`build.gradle.kts`). They are mostly in line with the ones from the reference [kotlin-fullstack-sample](https://github.com/Kotlin/kotlin-fullstack-sample).
 
 # Requirements
-The `kotlin-frontend-plugin` is picky when it comes to version numbers and it's not really documented.
+~~The `kotlin-frontend-plugin` is picky when it comes to version numbers and it's not really documented.~~
 
-Make sure that you use the latest LTS version of [Node.js](https://nodejs.org/en/download/releases/) (`v6.11.2` as of writing) and the matching npm release (`3.10.10`).
+~~Make sure that you use the latest LTS version of [Node.js](https://nodejs.org/en/download/releases/) (`v6.11.2` as of writing) and the matching npm release (`3.10.10`).~~
+
+As of `kotlin-frontend-plugin` version `0.0.20` you can use the latest `node` and `npm` versions.
 
 # How to run
 First, you have to start the backend:
