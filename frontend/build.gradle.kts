@@ -5,6 +5,8 @@ import org.jetbrains.kotlin.gradle.frontend.npm.NpmExtension
 import org.jetbrains.kotlin.gradle.frontend.webpack.WebPackExtension
 import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 
+val enableDce = false
+
 group = "co.makery.todomvc.frontend"
 
 buildscript {
@@ -26,6 +28,7 @@ plugins {
 apply {
   plugin("kotlin2js")
   plugin("org.jetbrains.kotlin.frontend")
+  if (enableDce) plugin("kotlin-dce-js")
 }
 
 repositories {
@@ -90,4 +93,8 @@ tasks {
 afterEvaluate {
   tasks["webpack-bundle"].dependsOn("copyResources")
   tasks["webpack-run"].dependsOn("copyResources")
+  if (enableDce) {
+    tasks["webpack-bundle"].dependsOn("runDceKotlinJs")
+    tasks["webpack-run"].dependsOn("runDceKotlinJs")
+  }
 }
