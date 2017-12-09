@@ -6,11 +6,11 @@ group = "co.makery.todomvc.backend"
 
 plugins {
   application
-  kotlin("jvm", kotlinVersion)
+  kotlin("jvm") version kotlinVersion
 }
 
 application {
-  mainClassName = "org.jetbrains.ktor.netty.DevelopmentHost"
+  mainClassName = "io.ktor.server.netty.DevelopmentEngine"
 }
 
 kotlin {
@@ -23,16 +23,11 @@ tasks.withType<KotlinCompile> {
   }
 }
 
-repositories {
-  maven { setUrl("https://dl.bintray.com/kotlin/ktor") }
-  maven { setUrl("https://dl.bintray.com/kotlin/kotlinx.html") }
-}
-
 dependencies {
-  compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
-  compile("org.jetbrains.kotlinx:kotlinx-html-jvm:$htmlVersion")
-  compile("org.jetbrains.ktor:ktor-netty:0.4.0")
-  compile("org.jetbrains.ktor:ktor-html-builder:0.4.0")
-  compile("ch.qos.logback:logback-classic:1.2.3")
-  compile("azadev.kotlin:aza-kotlin-css:1.0")
+  compile(kotlin("stdlib", kotlinVersion))
+  compile("org.jetbrains.kotlinx:kotlinx-html-jvm:$kotlinxHtmlVersion")
+  compile("io.ktor:ktor-server-netty:$ktorVersion")
+  compile("io.ktor:ktor-html-builder:$ktorVersion")
+  compile("ch.qos.logback:logback-classic:$logbackVersion")
+  compile("azadev.kotlin:aza-kotlin-css:$cssVersion")
 }

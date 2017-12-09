@@ -45,7 +45,7 @@ fun TagConsumer<*>.application() {
     }
     section(classes = "main") {
       input(classes = "toggle-all", type = InputType.checkBox)
-      label { for_ = "toggle-all"; +"Mark all as complete" }
+      label { htmlFor = "toggle-all"; +"Mark all as complete" }
       ul(classes = "todo-list")
     }
     footer(classes = "footer") {

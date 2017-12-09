@@ -3,6 +3,8 @@ allprojects {
 
   repositories {
     jcenter()
+    maven { setUrl("https://dl.bintray.com/kotlin/ktor") }
+    maven { setUrl("https://dl.bintray.com/kotlin/kotlinx.html") }
   }
 }
 

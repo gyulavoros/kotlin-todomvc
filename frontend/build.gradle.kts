@@ -5,48 +5,26 @@ import org.jetbrains.kotlin.gradle.frontend.npm.NpmExtension
 import org.jetbrains.kotlin.gradle.frontend.webpack.WebPackExtension
 import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 
-val enableDce = false
-
 group = "co.makery.todomvc.frontend"
 
-buildscript {
-  repositories {
-    jcenter()
-    maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
-  }
-
-  dependencies {
-    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-    classpath("org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.20")
-  }
-}
-
 plugins {
-  java
-}
-
-apply {
-  plugin("kotlin2js")
-  plugin("org.jetbrains.kotlin.frontend")
-  if (enableDce) plugin("kotlin-dce-js")
-}
-
-repositories {
-  maven { setUrl("https://dl.bintray.com/kotlin/kotlinx.html") }
+  id("kotlin2js") version kotlinVersion
+  id("kotlin-dce-js") version kotlinVersion
+  id("org.jetbrains.kotlin.frontend") version frontendPluginVersion
 }
 
 dependencies {
   compile("org.jetbrains.kotlin:kotlin-stdlib-js:$kotlinVersion")
   compile("org.jetbrains.kotlin:kotlin-test-js:$kotlinVersion")
-  compile("org.jetbrains.kotlinx:kotlinx-html-js:$htmlVersion")
+  compile("org.jetbrains.kotlinx:kotlinx-html-js:$kotlinxHtmlVersion")
 }
 
-configure<KotlinFrontendExtension> {
+kotlinFrontend {
   sourceMaps = true
 
-  configure<NpmExtension> {
-    devDependency("css-loader")
-    devDependency("style-loader")
+  npm {
+    dependency("css-loader")
+    dependency("style-loader")
     devDependency("karma")
   }
 
@@ -58,43 +36,41 @@ configure<KotlinFrontendExtension> {
     }
   })
 
-  define("PRODUCTION", false)
+  define("PRODUCTION", true)
 }
 
-tasks.getByPath("compileKotlin2Js").configure(closureOf<Kotlin2JsCompile> {
-  kotlinOptions {
-    metaInfo = true
-    outputFile = "${project.buildDir.path}/js/${project.name}.js"
-    sourceMap = true
-    moduleKind = "commonjs"
-    main = "call"
-  }
-})
-
-tasks.getByPath("compileTestKotlin2Js").configure(closureOf<Kotlin2JsCompile> {
-  kotlinOptions {
-    metaInfo = true
-    outputFile = "${project.buildDir.path}/js-tests/${project.name}-tests.js"
-    sourceMap = true
-    moduleKind = "commonjs"
-    main = "call"
-  }
-})
-
-val mainSrc = java.sourceSets.getByName("main")
-
 tasks {
+  "compileKotlin2Js"(Kotlin2JsCompile::class) {
+    kotlinOptions {
+      metaInfo = true
+      outputFile = "${project.buildDir.path}/js/${project.name}.js"
+      sourceMap = true
+      sourceMapEmbedSources = "always"
+      moduleKind = "commonjs"
+      main = "call"
+    }
+  }
+
+  "compileTestKotlin2Js"(Kotlin2JsCompile::class) {
+    kotlinOptions {
+      metaInfo = true
+      outputFile = "${project.buildDir.path}/js-tests/${project.name}-tests.js"
+      sourceMap = true
+      moduleKind = "commonjs"
+      main = "call"
+    }
+  }
+
   "copyResources"(Copy::class) {
+    val mainSrc = java.sourceSets["main"]
     from(mainSrc.resources.srcDirs)
-    into(file(buildDir.path + "/js"))
+    into(file(buildDir.path + "/js/min"))
   }
 }
 
 afterEvaluate {
   tasks["webpack-bundle"].dependsOn("copyResources")
   tasks["webpack-run"].dependsOn("copyResources")
-  if (enableDce) {
-    tasks["webpack-bundle"].dependsOn("runDceKotlinJs")
-    tasks["webpack-run"].dependsOn("runDceKotlinJs")
-  }
+  tasks["webpack-bundle"].dependsOn("runDceKotlinJs")
+  tasks["webpack-run"].dependsOn("runDceKotlinJs")
 }

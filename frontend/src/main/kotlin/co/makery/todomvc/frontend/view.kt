@@ -6,13 +6,13 @@ import kotlin.browser.document
 import kotlin.dom.addClass
 import kotlin.dom.removeClass
 
+private const val ENTER_KEY = 13
+private const val ESCAPE_KEY = 27
+
 class View(private val template: Template) {
 
   val render = Renderer()
   val bind = Binder()
-
-  private val ENTER_KEY = 13
-  private val ESCAPE_KEY = 27
 
   private val todoList = qs(".todo-list") as HTMLElement
   private val todoItemCounter = qs(".todo-count") as HTMLElement
